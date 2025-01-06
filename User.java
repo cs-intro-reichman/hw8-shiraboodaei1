@@ -72,8 +72,23 @@
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if (!follows(name)){
+            return false;
+        }
+        for (int i = 0; i < maxfCount; i++){
+            if (follows[i]==name){
+                follows[i] = null;
+                for (int j = maxfCount -1; j > i; j--){
+                    if (follows[j] != null){
+                        follows[i] = follows[j];
+                        follows[j] = null;
+                        break; 
+                    }   
+                }
+                break;
+            }
+        }
+        return true;
     }
 
     /** Counts the number of users that both this user and the other user follow.
