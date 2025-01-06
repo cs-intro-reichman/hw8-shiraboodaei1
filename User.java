@@ -53,8 +53,20 @@
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if (follows[maxfCount -1] != null){
+            return false;
+        }
+        if (follows(name)){
+            return false;
+        } else {
+            for (int i = 0; i < maxfCount; i++){
+                if (follows[i]==null){
+                    follows[i] = name;
+                    break;
+                }
+            }return true;
+            
+        }
     }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
