@@ -29,7 +29,11 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
-        //// Replace the following statement with your code
+        for (int i=0 ; i < userCount; i++){
+            if (this.users[i].getName() == name){
+                return this.users[i];
+            }
+        }
         return null;
     }
 
@@ -38,8 +42,20 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if (getUser(name) == null){
+            return false;
+        }
+        if (users[userCount-1] != null){
+            return false;
+        }
+        else {
+            for (int i = 0; i < userCount; i++){
+                if (users[i]==null){
+                    users[i] = new User(name);
+                    break;
+                }
+            }
+        } return true;
     }
 
     /** Makes the user with name1 follow the user with name2. If successful, returns true.
