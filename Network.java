@@ -29,7 +29,7 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
-        for (int i=0 ; i < userCount; i++){
+        for (int i=0 ; i < this.userCount; i++){
             if (this.users[i].getName() == name){
                 return this.users[i];
             }
@@ -42,16 +42,17 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        if (getUser(name) == null){
+        if (getUser(name) != null){
             return false;
         }
-        if (users[userCount-1] != null){
+        if (users[(users.length)-1] != null){
             return false;
         }
         else {
-            for (int i = 0; i < userCount; i++){
+            for (int i = 0; i < users.length; i++){
                 if (users[i]==null){
                     users[i] = new User(name);
+                    userCount += 1;
                     break;
                 }
             }
@@ -62,8 +63,11 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        //// Replace the following statement with your code
-        return false;
+        if (getUser(name1)==null || getUser(name2)==null){
+            return false;
+        }
+        User user = getUser(name1);
+        return user.addFollowee(name2);
     }
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
