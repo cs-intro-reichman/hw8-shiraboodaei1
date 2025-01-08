@@ -76,7 +76,7 @@ public class Network {
         int maxContMutuals = 0;
         String recommendFollow = "";
         for (int i = 0; i < userCount; i++){
-            if (users[i].countMutual(getUser(name)) > maxContMutuals){
+            if ((users[i].countMutual(getUser(name)) > maxContMutuals)&&(users[i].getName()!=name)){
                 maxContMutuals = users[i].countMutual(getUser(name));
                 recommendFollow = users[i].getName();
             }
