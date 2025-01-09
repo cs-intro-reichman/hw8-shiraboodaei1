@@ -55,15 +55,12 @@ public class Network {
             return false;
         }
         else {
-            for (int i = 0; i < users.length; i++){
-                if (users[i]==null){
-                    users[i] = new User(name);
-                    userCount += 1;
-                    break;
-                }
-            }
-        } return true;
-    }
+            this.users[userCount] = new User(name);
+            this.userCount += 1;
+            } 
+            return true;
+        }
+
 
     /** Makes the user with name1 follow the user with name2. If successful, returns true.
      *  If any of the two names is not a user in this network,
@@ -73,7 +70,7 @@ public class Network {
         name1 = name1.substring(0,1).toUpperCase() + name1.substring(1);
         name2 = name2.substring(0,1).toUpperCase() + name2.substring(1);
 
-        if (getUser(name1)==null || getUser(name2)==null){
+        if (getUser(name1)==null || getUser(name2)==null || name1.equals(name2)){
             return false;
         }
         User user = getUser(name1);
