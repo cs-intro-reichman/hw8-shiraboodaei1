@@ -82,20 +82,14 @@
         if (!this.follows(name)){
             return false;
         }
-        for (int i = 0; i < maxfCount; i++){
+        for (int i = 0; i < this.fCount; i++){
             if (this.follows[i].equals(name)){
-                this.follows[i] = null;
-                for (int j = maxfCount -1; j > i; j--){
-                    if (this.follows[j] != null){
-                        this.follows[i] = this.follows[j];
-                        this.follows[j] = null;
-                        this.fCount --;
-                        break; 
+                this.follows[i] = this.follows[this.fCount - 1];
+                this.follows[this.fCount - 1] = null;
+                this.fCount --;
+                break; 
                     }   
                 }
-                break;
-            }
-        }
         return true;
     }
 
