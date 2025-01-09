@@ -70,6 +70,9 @@ public class Network {
         name1 = name1.substring(0,1).toUpperCase() + name1.substring(1);
         name2 = name2.substring(0,1).toUpperCase() + name2.substring(1);
 
+        if (name1 == null || name2 == null){
+            return false;
+        }
         if (getUser(name1)==null || getUser(name2)==null || name1.equals(name2)){
             return false;
         }
