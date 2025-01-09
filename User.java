@@ -11,7 +11,7 @@
 
     /** Creates a user with an empty list of followees. */
     public User(String name) {
-        this.name = name;
+        this.name = name.substring(0,1).toUpperCase() + name.substring(1);
         follows = new String[maxfCount]; // fixed-size array for storing followees
         fCount = 0;                      // initial number of followees
     }
@@ -43,45 +43,53 @@
 
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
-        for (int i = 0; i < maxfCount; i++){
-            if (follows[i] == name){
-                return true;
-            }
+        if (name != null){
+            name = name.substring(0,1).toUpperCase() + name.substring(1);
         }
+        for (int i = 0; i < this.fCount; i++){
+                if (name.equals(this.follows[i])){
+                    return true;
+                }
+            }
         return false;
     }
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if (follows[maxfCount -1] != null){
+        if (name != null){
+            name = name.substring(0,1).toUpperCase() + name.substring(1);
+        }
+        if (this.fCount == maxfCount){
             return false;
         }
-        if (follows(name)){
+        if (this.follows(name)){
             return false;
         } else {
-            for (int i = 0; i < maxfCount; i++){
-                if (follows[i]==null){
-                    follows[i] = name;
-                    break;
+            this.follows[this.fCount] = name;
+            this.fCount ++;
                 }
-            }return true;
+        return true;
             
-        }
     }
+    
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        if (!follows(name)){
+        if (name != null){
+            name = name.substring(0,1).toUpperCase() + name.substring(1);
+        }
+        if (!this.follows(name)){
             return false;
         }
         for (int i = 0; i < maxfCount; i++){
-            if (follows[i]==name){
-                follows[i] = null;
+            if (this.follows[i].equals(name)){
+                this.follows[i] = null;
                 for (int j = maxfCount -1; j > i; j--){
-                    if (follows[j] != null){
-                        follows[i] = follows[j];
-                        follows[j] = null;
+                    if (this.follows[j] != null){
+                        this.follows[i] = this.follows[j];
+                        this.follows[j] = null;
+                        this.fCount --;
                         break; 
                     }   
                 }
@@ -95,10 +103,13 @@
     /*  Notice: This is the size of the intersection of the two follows lists. */
     public int countMutual(User other) {
         int count = 0;
-        for (int i = 0; i < this.maxfCount; i++){
-            if (other.follows(this.follows[i]) && this.follows[i]!=null){
-                count += 1;
+        for (int i = 0; i < this.fCount; i++){
+            if (this.follows[i]!=null){
+                if (other.follows(this.follows[i])){
+                    count += 1;
+                }
             }
+            
         }
         return count;
     }
@@ -114,8 +125,8 @@
     /** Returns this user's name, and the names that s/he follows. */
     public String toString() {
         String ans = name + " -> ";
-        for (int i = 0; i < fCount; i++) {
-            ans = ans + follows[i] + " ";
+        for (int i = 0; i < this.fCount; i++) {
+            ans = ans + this.follows[i] + " ";
         }
         return ans;
     }
